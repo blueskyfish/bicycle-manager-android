@@ -1,0 +1,134 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              tools:context="de.kirchnerei.bicycle.OverviewFragment">
+
+    <android.support.v7.widget.CardView
+        style="@style/AppTheme.CardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:id="@+id/cardview_battery"
+        android:focusableInTouchMode="false"
+        android:focusable="true"
+        android:layout_marginBottom="@dimen/card_bottom_margin">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/card_horizontal_padding"
+            android:paddingRight="@dimen/card_horizontal_padding"
+            android:paddingTop="@dimen/card_vertical_padding"
+            android:paddingBottom="@dimen/card_vertical_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_battery_indego_48dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/card_horizontal_margin"
+                android:id="@+id/battery_image"/>
+
+            <TextView
+                style="@style/AppTheme.Header.Primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/battery_title"
+                android:id="@+id/battery_title"
+                android:layout_alignParentTop="true"
+                android:singleLine="true"
+                android:layout_alignStart="@+id/battery_text"
+                android:layout_alignEnd="@+id/imageView"
+                android:paddingRight="@dimen/card_chevron_padding"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/battery_text"
+                android:id="@+id/battery_text"
+                android:layout_below="@+id/battery_title"
+                android:layout_marginTop="@dimen/card_vertical_margin"
+                android:layout_toEndOf="@+id/battery_image"
+                android:paddingRight="@dimen/card_chevron_padding"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:src="@drawable/ic_chevron_right_grey_18dp"
+                android:layout_alignTop="@+id/battery_title"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/battery_text"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        style="@style/AppTheme.CardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:id="@+id/cardview_setting"
+        android:focusableInTouchMode="false"
+        android:focusable="true"
+        android:layout_marginBottom="@dimen/card_bottom_margin">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/card_horizontal_padding"
+            android:paddingRight="@dimen/card_horizontal_padding"
+            android:paddingTop="@dimen/card_vertical_padding"
+            android:paddingBottom="@dimen/card_vertical_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_settings_indego_48dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/card_horizontal_margin"
+                android:id="@+id/setting_image"/>
+
+            <TextView
+                style="@style/AppTheme.Header.Primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setting_title"
+                android:id="@+id/setting_title"
+                android:layout_alignParentTop="true"
+                android:singleLine="true"
+                android:layout_alignStart="@+id/setting_text"
+                android:layout_alignEnd="@+id/setting_chevron"
+                android:paddingRight="@dimen/card_chevron_padding"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/setting_text"
+                android:id="@+id/setting_text"
+                android:layout_below="@+id/setting_title"
+                android:layout_marginTop="@dimen/card_vertical_margin"
+                android:layout_toEndOf="@+id/setting_image"
+                android:paddingRight="@dimen/card_chevron_padding"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/setting_chevron"
+                android:src="@drawable/ic_chevron_right_grey_18dp"
+                android:layout_alignTop="@+id/setting_title"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/setting_text"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Bicycle Manager</string>
+
+    <string name="dialog_setting">Einstellungen</string>
+
+    <string name="hint_user_email">E-Mail Adresse</string>
+    <string name="hint_password">Passwort</string>
+
+    <string name="fragment_setting">de.kirchnerei.bicycle.fragment.setting</string>
+    <string name="fragment_overview">de.kirchnerei.bicycle.fragment.overview</string>
+    <string name="fragment_battery_list">de.kirchnerei.bicycle.fragment.batteryList</string>
+
+    <string name="action_login">Anmelden</string>
+    <string name="action_save">Speichern</string>
+    <string name="action_cancel">Abbrechen</string>
+
+
+    <string name="battery_title">Batterie Management</string>
+    <string name="battery_text">Verwaltet die Batterie Ladezyklen und zeigt eine Übersicht über die Entfernung in Kilometer.</string>
+    <string name="setting_message">Die E-Mail Adresse und das Password verläßt nicht die Anwendung.\nDie beiden werden verwendet, um einen eindeutigen Token zu erstellen.</string>
+    <string name="setting_title">Einstellungen</string>
+    <string name="setting_text">Einstellungen bearbeiten.\nHier müssen die Login Daten und andere Dinge eingestellt werden.</string>
+    <string name="setting_token_hint">Token</string>
+
+    <string name="battery_image_hint">Batterie</string>
+    <string name="battery_mileage_label">Kilometerstand</string>
+    <string name="battery_average_speed_label">Ø Geschwindigkeit</string>
+
+    <string name="battery_empty_list">Es gibt keine Einträge</string>
+
+    <string name="unit_format_distance">%1$s km</string>
+    <string name="unit_format_speed">%1$s km/h</string>
+    <string name="unit_format_date">dd.MM.yyyy</string>
+    <string name="unit_format_separator">,</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
