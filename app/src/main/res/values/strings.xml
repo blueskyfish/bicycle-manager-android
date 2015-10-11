@@ -26,7 +26,7 @@
     <string name="battery_mileage_label">Kilometerstand</string>
     <string name="battery_average_speed_label">Ø Geschwindigkeit</string>
 
-    <string name="battery_empty_list">Es gibt keine Einträge</string>
+    <string name="battery_leftover_label">Rest</string>
 
     <string name="unit_format_distance">%1$s km</string>
     <string name="unit_format_speed">%1$s km/h</string>

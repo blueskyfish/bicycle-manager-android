@@ -4,8 +4,13 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+
     defaultConfig {
-        applicationId "de.kirchnerei.bicycledistance"
+        applicationId "de.kirchnerei.bicycle"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
@@ -27,4 +32,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.0.1'
     compile 'com.android.support:recyclerview-v7:23.0.1'
     compile 'com.google.guava:guava:18.0'
+    compile 'kirchnerei:simple-http-client:0.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.2'
 }

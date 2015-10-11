@@ -1,6 +1,7 @@
 package de.kirchnerei.bicycle.battery;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,10 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Arrays;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.kirchnerei.bicycle.BaseFragment;
@@ -20,6 +23,11 @@ import de.kirchnerei.bicycle.R;
 import de.kirchnerei.bicycle.helper.Formatter;
 import de.kirchnerei.bicycle.helper.Logger;
 import de.kirchnerei.bicycle.helper.Unit;
+import de.kirchnerei.bicycle.http.HttpManager;
+import kirchnerei.httpclient.HttpRequest;
+import kirchnerei.httpclient.HttpResponse;
+import kirchnerei.httpclient.Method;
+import kirchnerei.httpclient.PathBuilder;
 
 
 /**
@@ -29,6 +37,9 @@ public class BatteryListFragment extends BaseFragment {
 
     private RecyclerView mBatteryList;
     private BatteryListAdapter mAdapter;
+
+    private HttpManager mHttpManager;
+    private ObjectMapper mMapper;
 
     public BatteryListFragment() {
         // Required empty public constructor
@@ -48,19 +59,11 @@ public class BatteryListFragment extends BaseFragment {
         mBatteryList.setLayoutManager(linearManager);
 
         Formatter formatter = getBicycleApplication().getFormatter();
-        List<BatteryItem> items = Arrays.asList(
-            new BatteryItem(99, formatter.toDate("10.10.2015"), 184, 23002, 120, 840),
-            new BatteryItem(98, formatter.toDate("30.09.2015"), 191, 22108, 50, 901),
-            new BatteryItem(97, formatter.toDate("23.09.2015"), 174, 21703, 10, 872),
-            new BatteryItem(96, formatter.toDate("18.09.2015"), 195, 22108, 70, 765),
-            new BatteryItem(99, formatter.toDate("10.10.2015"), 184, 23002, 120, 840),
-            new BatteryItem(98, formatter.toDate("30.09.2015"), 191, 22108, 50, 901),
-            new BatteryItem(97, formatter.toDate("23.09.2015"), 174, 21703, 10, 872),
-            new BatteryItem(96, formatter.toDate("18.09.2015"), 195, 22108, 70, 765)
-
-        );
-        mAdapter = new BatteryListAdapter(items, formatter);
+        mAdapter = new BatteryListAdapter(formatter);
         mBatteryList.setAdapter(mAdapter);
+
+        mHttpManager = getBicycleApplication().getHttpManager();
+        mMapper = getBicycleApplication().getMapper();
 
         return view;
     }
@@ -69,6 +72,8 @@ public class BatteryListFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         getMiddlewareHandler().changeFloatingButton(FloatingButtonKind.BATTERY, addBatteryListener);
+        GetBatteryListRequest request = new GetBatteryListRequest();
+        request.execute("battery");
     }
 
     private final View.OnClickListener addBatteryListener = new View.OnClickListener() {
@@ -83,9 +88,17 @@ public class BatteryListFragment extends BaseFragment {
         private final List<BatteryItem> items;
         private final Formatter formatter;
 
-        public BatteryListAdapter(List<BatteryItem> items, Formatter formatter) {
-            this.items = items;
+        public BatteryListAdapter(Formatter formatter) {
+            this.items = new ArrayList<>(64);
             this.formatter = formatter;
+        }
+
+        public void changeData(List<BatteryItem> items) {
+            if (items != null && !items.isEmpty()) {
+                this.items.clear();
+                this.items.addAll(items);
+                this.notifyDataSetChanged();
+            }
         }
 
         @Override
@@ -103,6 +116,7 @@ public class BatteryListFragment extends BaseFragment {
             holder.mDistance.setText(formatter.from(item.getDistance(), Unit.DISTANCE));
             holder.mMileage.setText(formatter.from(item.getMileage(), Unit.DISTANCE));
             holder.mAverageSpeed.setText(formatter.from(item.getAverageSpeed(), Unit.SPEED));
+            holder.mLeftover.setText(formatter.from(item.getLeftover(), Unit.DISTANCE));
         }
 
         @Override
@@ -117,6 +131,7 @@ public class BatteryListFragment extends BaseFragment {
         protected final TextView mDistance;
         protected final TextView mMileage;
         protected final TextView mAverageSpeed;
+        protected final TextView mLeftover;
 
         public BatteryItemHolder(View itemView) {
             super(itemView);
@@ -125,6 +140,38 @@ public class BatteryListFragment extends BaseFragment {
             mDistance     = (TextView) itemView.findViewById(R.id.battery_distance);
             mMileage      = (TextView) itemView.findViewById(R.id.battery_mileage);
             mAverageSpeed = (TextView) itemView.findViewById(R.id.battery_average_speed);
+            mLeftover     = (TextView) itemView.findViewById(R.id.battery_leftover);
         }
+    }
+
+    /**
+     * Starts and executes a request to get the battery list
+     */
+    class GetBatteryListRequest extends AsyncTask<Object, Void, List<BatteryItem>> {
+
+        @Override
+        protected List<BatteryItem> doInBackground(Object... params) {
+            String url = PathBuilder.toUrl(params);
+            HttpRequest request = new HttpRequest(url, Method.GET, null);
+            HttpResponse response = mHttpManager.execute(request);
+            String content = response.getContent();
+            try {
+                ResultBatteryList result = mMapper.readValue(content, ResultBatteryList.class);
+                if ("okay".equals(result.getStatus())) {
+                    return result.getBatteryList();
+                }
+            }
+            catch (IOException e) {
+                // TODO show an error message
+            }
+            return EMPTY_LIST;
+        }
+
+        @Override
+        protected void onPostExecute(List<BatteryItem> items) {
+            mAdapter.changeData(items);
+        }
+
+        private final List<BatteryItem> EMPTY_LIST = new ArrayList<>();
     }
 }

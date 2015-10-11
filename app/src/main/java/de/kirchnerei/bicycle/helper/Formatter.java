@@ -7,6 +7,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import de.kirchnerei.bicycle.R;
 
@@ -21,12 +22,12 @@ public class Formatter {
         this.mContext = context;
 
         String dateFormat = context.getString(R.string.unit_format_date);
-        this.mDateFormat = new SimpleDateFormat(dateFormat);
+        this.mDateFormat = new SimpleDateFormat(dateFormat, Locale.getDefault());
 
-        this.mNumberFormat = new DecimalFormat("#.0");
+        this.mNumberFormat = new DecimalFormat("#0.0");
         DecimalFormatSymbols numberSymbols = new DecimalFormatSymbols();
         String separator = context.getString(R.string.unit_format_separator);
-        char sign = separator != null && !separator.isEmpty() ? separator.charAt(0) : '.';
+        char sign = !separator.isEmpty() ? separator.charAt(0) : '.';
         numberSymbols.setDecimalSeparator(sign);
         mNumberFormat.setDecimalFormatSymbols(numberSymbols);
     }
@@ -36,6 +37,9 @@ public class Formatter {
     }
 
     public String from(int number, Unit unit) {
+        if (number <= 0) {
+            return "-";
+        }
         String value = mNumberFormat.format((double) number / 10);
         return mContext.getString(unit.getFormatId(), value);
     }

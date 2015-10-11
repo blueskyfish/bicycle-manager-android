@@ -8,4 +8,11 @@ public class StringUtil {
         }
         return value;
     }
+
+    public static String format(String message, Object... args) {
+        if (args != null && args.length > 0) {
+            return String.format(message, args);
+        }
+        return message;
+    }
 }

@@ -17,4 +17,17 @@ public interface SettingRepository {
      * @param password the password
      */
     void change(String userEmail, String password);
+
+    /**
+     * Returns the base url from the server
+     * @return the base url
+     */
+    String getBaseUrl();
+
+    /**
+     * Verify whether the token is valid.
+     *
+     * @param token the token
+     */
+    void verifyToken(String token);
 }

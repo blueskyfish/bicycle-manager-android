@@ -19,6 +19,7 @@ public class SettingManager implements SettingRepository {
     public static final String PREF_USER_EMAIL = "de.kirchnerei.bicycle.userEmail";
     public static final String PREF_PASSWORD = "de.kirchnerei.bicycle.password";
     public static final String PREF_TOKEN = "de.kirchnerei.bicycle.token";
+    public static final String PREF_BASE_URL = "de.kirchnerei.bicycle.baseUrl";
 
     private String mUserEmail = null;
     private String mPassword = null;
@@ -49,6 +50,19 @@ public class SettingManager implements SettingRepository {
     }
 
     @Override
+    public void verifyToken(String token) {
+        String originToken = buildToken(getUserEmail(), getPassword());
+        if (!originToken.equals(token)) {
+            Logger.warn("token is not equal to the origin '%s'", originToken);
+        }
+    }
+
+    @Override
+    public String getBaseUrl() {
+        return "http://10.0.3.2:8800";
+    }
+
+    @Override
     public String getUserEmail() {
         if (mUserEmail == null) {
             SharedPreferences prefs = mContext.getSharedPreferences(
@@ -75,14 +89,8 @@ public class SettingManager implements SettingRepository {
         Check.notNull(password,
             "Could not change the settings, because the parameter 'password' is null!");
 
-        HashCode hashCode = hashFunction
-            .newHasher()
-            .putString(userEmail, Charsets.UTF_8)
-            .putString(password, Charsets.UTF_8)
-            .hash();
-
         Logger.debug("save login [%s - %s]", userEmail, password);
-        String token = hashCode.toString();
+        String token = buildToken(userEmail, password);
         Logger.debug("token [%s]", token);
 
         SharedPreferences prefs = mContext.getSharedPreferences(
@@ -97,5 +105,14 @@ public class SettingManager implements SettingRepository {
         mUserEmail = userEmail;
         mPassword = password;
         mToken = token;
+    }
+
+    private String buildToken(String userEmail, String password) {
+        HashCode hashCode = hashFunction
+            .newHasher()
+            .putString(userEmail, Charsets.UTF_8)
+            .putString(password, Charsets.UTF_8)
+            .hash();
+        return hashCode.toString();
     }
 }
