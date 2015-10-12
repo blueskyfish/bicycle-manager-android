@@ -1,5 +1,6 @@
 package de.kirchnerei.bicycle;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.view.View;
 import de.kirchnerei.bicycle.battery.BatteryListFragment;
 import de.kirchnerei.bicycle.helper.Check;
 import de.kirchnerei.bicycle.helper.Logger;
+import de.kirchnerei.bicycle.http.DiagnoseManager;
 import de.kirchnerei.bicycle.setting.SettingFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -72,6 +74,9 @@ public class MainActivity extends AppCompatActivity
                 openFragment(new BatteryListFragment(), R.string.fragment_battery_list);
                 setHomeAction(true);
                 break;
+            case R.string.fragment_diagnose:
+                DiagnoseManager.showDialog(this);
+                break;
         }
     }
 
@@ -106,6 +111,14 @@ public class MainActivity extends AppCompatActivity
             .addToBackStack(null)
             .commit();
         mCurrentFragmentId = tagId;
+    }
+
+    private void openDialog(DialogFragment fragment, Bundle arguments, int tagId) {
+        FragmentManager fm = getFragmentManager();
+        if (arguments != null && !arguments.isEmpty()) {
+            fragment.setArguments(arguments);
+        }
+        fragment.show(fm, getString(tagId));
     }
 
     private void doClickOnBackward() {

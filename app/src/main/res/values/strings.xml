@@ -9,6 +9,7 @@
     <string name="fragment_setting">de.kirchnerei.bicycle.fragment.setting</string>
     <string name="fragment_overview">de.kirchnerei.bicycle.fragment.overview</string>
     <string name="fragment_battery_list">de.kirchnerei.bicycle.fragment.batteryList</string>
+    <string name="fragment_diagnose">de.kirchnerei.bicycle.fragment.diagnose</string>
 
     <string name="action_login">Anmelden</string>
     <string name="action_save">Speichern</string>
@@ -25,8 +26,16 @@
     <string name="battery_image_hint">Batterie</string>
     <string name="battery_mileage_label">Kilometerstand</string>
     <string name="battery_average_speed_label">Ø Geschwindigkeit</string>
-
     <string name="battery_leftover_label">Rest</string>
+
+    <string name="battery_list_request_error">Die Anfrage nach den Batterie Elementen ist fehlgeschlagen!</string>
+    <string name="battery_list_request_error_action">Diagnose!</string>
+    <string name="battery_list_mapper_error">Das Ergebnis endhielt Fehler und musste verworfen werden!</string>
+
+    <string name="diagnose_title">Internet Diagnose</string>
+    <string name="diagnose_message">Überprüfen der Internent Verbindung:</string>
+    <string name="diagnose_signal_off">Es besteht keine Verbindung ins Internet</string>
+    <string name="diagnose_signal_on">Die Verbindung ist in Ordnung</string>
 
     <string name="unit_format_distance">%1$s km</string>
     <string name="unit_format_speed">%1$s km/h</string>

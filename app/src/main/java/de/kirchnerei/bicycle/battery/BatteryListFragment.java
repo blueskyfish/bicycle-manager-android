@@ -4,6 +4,7 @@ package de.kirchnerei.bicycle.battery;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +24,9 @@ import de.kirchnerei.bicycle.R;
 import de.kirchnerei.bicycle.helper.Formatter;
 import de.kirchnerei.bicycle.helper.Logger;
 import de.kirchnerei.bicycle.helper.Unit;
+import de.kirchnerei.bicycle.http.DiagnoseManager;
 import de.kirchnerei.bicycle.http.HttpManager;
+import de.kirchnerei.bicycle.http.StatusCheck;
 import kirchnerei.httpclient.HttpRequest;
 import kirchnerei.httpclient.HttpResponse;
 import kirchnerei.httpclient.Method;
@@ -154,17 +157,39 @@ public class BatteryListFragment extends BaseFragment {
             String url = PathBuilder.toUrl(params);
             HttpRequest request = new HttpRequest(url, Method.GET, null);
             HttpResponse response = mHttpManager.execute(request);
+            int statusCode = response.getStatusCode();
+            if (response.hasError()) {
+                Logger.debug("error result: %s", response.getContent());
+                showRequestError(statusCode);
+                return EMPTY_LIST;
+            }
             String content = response.getContent();
             try {
                 ResultBatteryList result = mMapper.readValue(content, ResultBatteryList.class);
-                if ("okay".equals(result.getStatus())) {
+                if (StatusCheck.isOkay(result)) {
                     return result.getBatteryList();
                 }
+                showRequestError(statusCode);
             }
             catch (IOException e) {
-                // TODO show an error message
+                Snackbar
+                    .make(mBatteryList, R.string.battery_list_mapper_error, Snackbar.LENGTH_LONG)
+                    .show();
+            }
+            finally {
+                Logger.debug("request duration %s ms", response.getDuration());
             }
             return EMPTY_LIST;
+        }
+
+        // The request for the battery elements has failed!
+        private void showRequestError(int statusCode) {
+            Logger.debug("The request for the battery elements has failed! (http status = %s)",
+                statusCode);
+            Snackbar
+                .make(mBatteryList, R.string.battery_list_request_error, Snackbar.LENGTH_LONG)
+                .setAction(R.string.battery_list_request_error_action, diagnoseListener)
+                .show();
         }
 
         @Override
@@ -174,4 +199,13 @@ public class BatteryListFragment extends BaseFragment {
 
         private final List<BatteryItem> EMPTY_LIST = new ArrayList<>();
     }
+
+    private final View.OnClickListener diagnoseListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Bundle args = new Bundle();
+            args.putInt(DiagnoseManager.PARAM_FROM, 1);
+            getMiddlewareHandler().onAction(R.string.fragment_diagnose, args);
+        }
+    };
 }

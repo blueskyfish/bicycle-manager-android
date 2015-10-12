@@ -14,6 +14,8 @@
     <dimen name="card_base_radius">5dp</dimen>
     <dimen name="card_chevron_padding">16dp</dimen>
 
+    <dimen name="dialog_horizontal_margin">8dp</dimen>
+    <dimen name="dialog_vertical_margin">8dp</dimen>
 
     <dimen name="setting_bottom_margin">12dp</dimen>
 
