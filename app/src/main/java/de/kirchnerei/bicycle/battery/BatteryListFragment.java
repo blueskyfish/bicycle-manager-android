@@ -155,7 +155,7 @@ public class BatteryListFragment extends BaseFragment {
         @Override
         protected List<BatteryItem> doInBackground(Object... params) {
             String url = PathBuilder.toUrl(params);
-            HttpRequest request = new HttpRequest(url, Method.GET, null);
+            HttpRequest request = HttpRequest.buildGET(url);
             HttpResponse response = mHttpManager.execute(request);
             int statusCode = response.getStatusCode();
             if (response.hasError()) {
