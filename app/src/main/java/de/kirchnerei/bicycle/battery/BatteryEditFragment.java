@@ -46,14 +46,6 @@ public class BatteryEditFragment extends BaseFragment {
     private Formatter mFormatter;
     private ObjectMapper mMapper;
 
-    public static BatteryEditFragment newInstance(Bundle args) {
-        BatteryEditFragment fragment = new BatteryEditFragment();
-        if (args != null) {
-            fragment.setArguments(args);
-        }
-        return fragment;
-    }
-
     private int mId = 0;
 
     public BatteryEditFragment() {

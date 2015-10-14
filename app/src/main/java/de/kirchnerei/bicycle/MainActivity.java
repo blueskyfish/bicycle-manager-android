@@ -65,15 +65,15 @@ public class MainActivity extends AppCompatActivity
     public void onAction(int action, Bundle arguments) {
         switch (action) {
             case R.string.fragment_setting:
-                openFragment(new SettingFragment(), R.string.fragment_setting);
+                openFragment(new SettingFragment(), arguments, R.string.fragment_setting);
                 setHomeAction(true);
                 break;
             case R.string.fragment_overview:
-                openFragment(new OverviewFragment(), R.string.fragment_overview);
+                openFragment(new OverviewFragment(), arguments, R.string.fragment_overview);
                 setHomeAction(false);
                 break;
             case R.string.fragment_battery_list:
-                openFragment(new BatteryListFragment(), R.string.fragment_battery_list);
+                openFragment(new BatteryListFragment(), arguments, R.string.fragment_battery_list);
                 setHomeAction(true);
                 break;
             case R.string.fragment_diagnose:
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.string.fragment_battery_edit:
                 openFragment(
-                    BatteryEditFragment.newInstance(arguments), R.string.fragment_battery_edit);
+                    new BatteryEditFragment(), arguments, R.string.fragment_battery_edit);
                 setHomeAction(true);
                 break;
         }
@@ -132,7 +132,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void openFragment(Fragment fragment, int tagId) {
+    private void openFragment(Fragment fragment, Bundle args, int tagId) {
+        if (args != null && !args.isEmpty()) {
+            fragment.setArguments(args);
+        }
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction()
             .replace(R.id.content, fragment, getString(tagId))
@@ -154,11 +157,13 @@ public class MainActivity extends AppCompatActivity
         switch (mCurrentFragmentId) {
             case R.string.fragment_battery_list:
             case R.string.fragment_setting:
-                openFragment(new OverviewFragment(), R.string.fragment_overview);
+                openFragment(new OverviewFragment(), BaseFragment.EMPTY_BUNDLE,
+                    R.string.fragment_overview);
                 setHomeAction(false);
                 break;
             case R.string.fragment_battery_edit:
-                openFragment(new BatteryListFragment(), R.string.fragment_battery_list);
+                openFragment(new BatteryListFragment(), BaseFragment.EMPTY_BUNDLE,
+                    R.string.fragment_battery_list);
                 setHomeAction(true);
                 break;
             default:

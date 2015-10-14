@@ -2,8 +2,11 @@ package de.kirchnerei.bicycle;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.os.Bundle;
 
 public abstract class BaseFragment extends Fragment {
+
+    public static final Bundle EMPTY_BUNDLE = new Bundle();
 
     private MiddlewareHandler mMiddlewareHandler;
 

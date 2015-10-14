@@ -48,11 +48,11 @@ public class OverviewFragment extends BaseFragment {
     }
 
     private void doBatteryCardClick() {
-        getMiddlewareHandler().onAction(R.string.fragment_battery_list, new Bundle());
+        getMiddlewareHandler().onAction(R.string.fragment_battery_list, EMPTY_BUNDLE);
     }
 
     private void doSettingCardClick() {
-        getMiddlewareHandler().onAction(R.string.fragment_setting, new Bundle());
+        getMiddlewareHandler().onAction(R.string.fragment_setting, EMPTY_BUNDLE);
     }
 
 
