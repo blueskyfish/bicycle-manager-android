@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import de.kirchnerei.bicycle.battery.BatteryEditFragment;
 import de.kirchnerei.bicycle.battery.BatteryListFragment;
 import de.kirchnerei.bicycle.helper.Check;
 import de.kirchnerei.bicycle.helper.Logger;
@@ -77,6 +79,11 @@ public class MainActivity extends AppCompatActivity
             case R.string.fragment_diagnose:
                 DiagnoseManager.showDialog(this);
                 break;
+            case R.string.fragment_battery_edit:
+                openFragment(
+                    BatteryEditFragment.newInstance(arguments), R.string.fragment_battery_edit);
+                setHomeAction(true);
+                break;
         }
     }
 
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity
             mFABKind = kind;
             mFAButton.setImageDrawable(getDrawable(kind.getImageId()));
             mFAButton.setOnClickListener(onClickListener);
-            Logger.debug("change the FAButton to %s", kind);
+            Logger.debug("change the FAB Button to %s", kind);
         }
     }
 
@@ -102,6 +109,27 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void hideFloatingButton() {
         mMsgHandler.postDelayed(hideFAButton, DELAY_FAB_BUTTON);
+    }
+
+    @Override
+    public Snackbar makeSnackbar(int resourceId) {
+        View view = findViewById(R.id.main_layout);
+        return Snackbar.make(view, resourceId, Snackbar.LENGTH_LONG);
+    }
+
+    @Override
+    public Snackbar makeSnackbar(int resourceId, int actionId, View.OnClickListener listener) {
+        return makeSnackbar(resourceId)
+            .setAction(actionId, listener);
+    }
+
+    @Override
+    public void post(Runnable runnable, long delay) {
+        if (delay > 0) {
+            mMsgHandler.postDelayed(runnable, delay);
+        } else {
+            mMsgHandler.post(runnable);
+        }
     }
 
     private void openFragment(Fragment fragment, int tagId) {
@@ -128,6 +156,10 @@ public class MainActivity extends AppCompatActivity
             case R.string.fragment_setting:
                 openFragment(new OverviewFragment(), R.string.fragment_overview);
                 setHomeAction(false);
+                break;
+            case R.string.fragment_battery_edit:
+                openFragment(new BatteryListFragment(), R.string.fragment_battery_list);
+                setHomeAction(true);
                 break;
             default:
                 Logger.debug("Backward: unknown fragment '%s'", mCurrentFragmentId);

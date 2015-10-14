@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import de.kirchnerei.bicycle.R;
+import kirchnerei.httpclient.Definition;
 
 public class Formatter {
 
@@ -41,7 +42,10 @@ public class Formatter {
             return "-";
         }
         String value = mNumberFormat.format((double) number / 10);
-        return mContext.getString(unit.getFormatId(), value);
+        if (unit != null) {
+            return mContext.getString(unit.getFormatId(), value);
+        }
+        return value;
     }
 
     public Date toDate(String s) {
@@ -50,5 +54,17 @@ public class Formatter {
         } catch (ParseException e) {
             return new Date();
         }
+    }
+
+    public Date parseISO(String s) {
+        try {
+            return Definition.DEFAULT_DATE_FORMAT.parse(s);
+        } catch (ParseException e) {
+            return new Date();
+        }
+    }
+
+    public String formatISO(Date d) {
+        return Definition.DEFAULT_DATE_FORMAT.format(d);
     }
 }

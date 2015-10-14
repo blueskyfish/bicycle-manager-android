@@ -8,6 +8,7 @@ import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 
+import de.kirchnerei.bicycle.R;
 import de.kirchnerei.bicycle.SettingRepository;
 import de.kirchnerei.bicycle.helper.Check;
 import de.kirchnerei.bicycle.helper.Logger;
@@ -24,6 +25,8 @@ public class SettingManager implements SettingRepository {
     private String mUserEmail = null;
     private String mPassword = null;
     private String mToken = null;
+
+    private String mBaseUrl = null;
 
     private HashFunction hashFunction = Hashing.sha1();
 
@@ -59,7 +62,11 @@ public class SettingManager implements SettingRepository {
 
     @Override
     public String getBaseUrl() {
-        return "http://10.0.3.2:8800";
+        if (mBaseUrl == null) {
+            mBaseUrl = mContext.getString(R.string.setting_base_url);
+            Logger.debug("base url '%s'", mBaseUrl);
+        }
+        return mBaseUrl;
     }
 
     @Override

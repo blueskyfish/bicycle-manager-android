@@ -9,6 +9,7 @@
     <string name="fragment_setting">de.kirchnerei.bicycle.fragment.setting</string>
     <string name="fragment_overview">de.kirchnerei.bicycle.fragment.overview</string>
     <string name="fragment_battery_list">de.kirchnerei.bicycle.fragment.batteryList</string>
+    <string name="fragment_battery_edit">de.kirchnerei.bicycle.fragment.batteryEdit</string>
     <string name="fragment_diagnose">de.kirchnerei.bicycle.fragment.diagnose</string>
 
     <string name="action_login">Anmelden</string>
@@ -27,6 +28,7 @@
     <string name="battery_mileage_label">Kilometerstand</string>
     <string name="battery_average_speed_label">Ø Geschwindigkeit</string>
     <string name="battery_leftover_label">Rest</string>
+    <string name="battery_date_label">Datum</string>
 
     <string name="battery_list_request_error">Die Anfrage nach den Batterie Elementen ist fehlgeschlagen!</string>
     <string name="battery_list_request_error_action">Diagnose!</string>
@@ -44,4 +46,6 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="setting_base_url">http://moonfish.xxx.uberspace.de/bicycle</string>
 </resources>

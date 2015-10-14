@@ -1,6 +1,7 @@
 package de.kirchnerei.bicycle;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 
 /**
@@ -23,4 +24,10 @@ public interface MiddlewareHandler {
     void showFloatingButton();
 
     void hideFloatingButton();
+
+    Snackbar makeSnackbar(int resourceId);
+    Snackbar makeSnackbar(int resourceId, int actionId, View.OnClickListener listener);
+
+    void post(Runnable runnable, long delay);
+
 }

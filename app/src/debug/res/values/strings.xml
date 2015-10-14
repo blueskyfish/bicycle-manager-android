@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setting_base_url">http://10.0.3.2:8800</string>
+</resources>
