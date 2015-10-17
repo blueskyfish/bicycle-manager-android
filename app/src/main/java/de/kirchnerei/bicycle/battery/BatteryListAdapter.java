@@ -14,10 +14,12 @@ import de.kirchnerei.bicycle.helper.Unit;
 
 public class BatteryListAdapter extends RecyclerView.Adapter<BatteryListViewHolder> {
 
+    private final View.OnClickListener clickListener;
     private final List<BatteryItem> items;
     private final Formatter mFormatter;
 
-    public BatteryListAdapter(Formatter formatter) {
+    public BatteryListAdapter(View.OnClickListener clickListener, Formatter formatter) {
+        this.clickListener = clickListener;
         this.items = new ArrayList<>(64);
         this.mFormatter = formatter;
     }
@@ -35,12 +37,15 @@ public class BatteryListAdapter extends RecyclerView.Adapter<BatteryListViewHold
         View itemView = LayoutInflater
             .from(viewGroup.getContext())
             .inflate(R.layout.cardview_battery, viewGroup, false);
+        // add the click listener
+        itemView.setOnClickListener(clickListener);
         return new BatteryListViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(BatteryListViewHolder holder, int position) {
         BatteryItem item = items.get(position);
+
         holder.mDate.setText(mFormatter.from(item.getDate()));
         holder.mDistance.setText(mFormatter.from(item.getDistance(), Unit.DISTANCE));
         holder.mMileage.setText(mFormatter.from(item.getMileage(), Unit.DISTANCE));
@@ -51,5 +56,9 @@ public class BatteryListAdapter extends RecyclerView.Adapter<BatteryListViewHold
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public BatteryItem getItem(int position) {
+        return items.get(position);
     }
 }

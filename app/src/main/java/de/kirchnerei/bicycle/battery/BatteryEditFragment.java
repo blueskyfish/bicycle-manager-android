@@ -33,8 +33,6 @@ import kirchnerei.httpclient.PathBuilder;
  */
 public class BatteryEditFragment extends BaseFragment {
 
-    public static final String PARAM_BATTERY_ID = "de.kirchnerei.bicycle.battery.id";
-
     private final BatteryEdit item = new BatteryEdit();
 
     private EditText mDate;
@@ -57,7 +55,7 @@ public class BatteryEditFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         if (args != null) {
-            mId = args.getInt(PARAM_BATTERY_ID, 0);
+            mId = args.getInt(BatteryDefine.PARAM_BATTERY_ID, 0);
         }
         mHttpManager = getBicycleApplication().getHttpManager();
         mFormatter = getBicycleApplication().getFormatter();

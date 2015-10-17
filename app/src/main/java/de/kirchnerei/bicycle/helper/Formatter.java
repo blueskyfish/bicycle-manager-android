@@ -64,6 +64,11 @@ public class Formatter {
         }
     }
 
+    public String getBatteryTitle(Date date, int distance) {
+        return mContext.getString(R.string.formatter_battery_title,
+            from(date), from(distance, Unit.DISTANCE));
+    }
+
     public String formatISO(Date d) {
         return Definition.DEFAULT_DATE_FORMAT.format(d);
     }

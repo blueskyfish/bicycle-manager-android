@@ -31,6 +31,7 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile 'com.android.support:cardview-v7:23.1.0'
     compile 'com.android.support:recyclerview-v7:23.1.0'
+    compile 'com.cocosw:bottomsheet:1.2.0@aar'
     compile 'com.google.guava:guava:18.0'
     compile 'kirchnerei:simple-http-client:0.2.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.6.2'

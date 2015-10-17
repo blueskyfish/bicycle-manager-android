@@ -1,15 +1,16 @@
 package de.kirchnerei.bicycle.battery;
 
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ import kirchnerei.httpclient.PathBuilder;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link BaseFragment} subclass.
  */
 public class BatteryListFragment extends BaseFragment {
 
@@ -40,6 +41,7 @@ public class BatteryListFragment extends BaseFragment {
 
     private HttpManager mHttpManager;
     private ObjectMapper mMapper;
+    private Formatter mFormatter;
 
     public BatteryListFragment() {
     }
@@ -70,8 +72,8 @@ public class BatteryListFragment extends BaseFragment {
         linearManager.setOrientation(LinearLayoutManager.VERTICAL);
         mBatteryList.setLayoutManager(linearManager);
 
-        Formatter formatter = getBicycleApplication().getFormatter();
-        mAdapter = new BatteryListAdapter(formatter);
+        mFormatter = getBicycleApplication().getFormatter();
+        mAdapter = new BatteryListAdapter(batteryItemClick, mFormatter);
         mBatteryList.setAdapter(mAdapter);
     }
 
@@ -89,12 +91,59 @@ public class BatteryListFragment extends BaseFragment {
         }, Delay.START_REQUEST);
     }
 
+    private void doBatteryItemClick(final View view) {
+        final int itemPosition = mBatteryList.getChildLayoutPosition(view);
+        getMiddlewareHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                doShowButtonSheet(itemPosition);
+            }
+        }, Delay.START_BOTTOM_SHEET);
+    }
+
+    private void doShowButtonSheet(int itemPosition) {
+        final BatteryItem item = mAdapter.getItem(itemPosition);
+        new BottomSheet.Builder(getActivity(), R.style.AppTheme_Dialog_BottomSheet)
+            .sheet(R.menu.menu_battery_list)
+            .title(mFormatter.getBatteryTitle(item.getDate(), item.getDistance()))
+            .grid()
+            .listener(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    doBatteryItemActionClick(which, item);
+                }
+            })
+            .show();
+    }
+
+    private void doBatteryItemActionClick(int action, BatteryItem item) {
+        Bundle args = new Bundle();
+        args.putInt(BatteryDefine.PARAM_BATTERY_ID, item.getId());
+
+        switch (action) {
+            case R.id.action_detail:
+                getMiddlewareHandler().onAction(R.string.fragment_battery_detail, args);
+                break;
+            case R.id.action_edit:
+            case R.id.action_delete:
+                Logger.debug("Not implemented yet");
+                break;
+        }
+    }
+
     private final View.OnClickListener addBatteryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Bundle args = new Bundle();
-            args.putInt(BatteryEditFragment.PARAM_BATTERY_ID, 0);
+            args.putInt(BatteryDefine.PARAM_BATTERY_ID, 0);
             getMiddlewareHandler().onAction(R.string.fragment_battery_edit, args);
+        }
+    };
+
+    private final View.OnClickListener batteryItemClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            doBatteryItemClick(view);
         }
     };
 

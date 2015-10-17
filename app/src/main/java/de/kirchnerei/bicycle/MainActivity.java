@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import de.kirchnerei.bicycle.battery.BatteryDetailFragment;
 import de.kirchnerei.bicycle.battery.BatteryEditFragment;
 import de.kirchnerei.bicycle.battery.BatteryListFragment;
 import de.kirchnerei.bicycle.helper.Check;
@@ -84,6 +85,11 @@ public class MainActivity extends AppCompatActivity
                     new BatteryEditFragment(), arguments, R.string.fragment_battery_edit);
                 setHomeAction(true);
                 break;
+            case R.string.fragment_battery_detail:
+                openFragment(
+                    new BatteryDetailFragment(), arguments, R.string.fragment_battery_detail);
+                setHomeAction(true);
+                break;
         }
     }
 
@@ -153,7 +159,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void doClickOnBackward() {
-        FragmentManager fm = getFragmentManager();
         switch (mCurrentFragmentId) {
             case R.string.fragment_battery_list:
             case R.string.fragment_setting:
@@ -162,6 +167,11 @@ public class MainActivity extends AppCompatActivity
                 setHomeAction(false);
                 break;
             case R.string.fragment_battery_edit:
+                openFragment(new BatteryListFragment(), BaseFragment.EMPTY_BUNDLE,
+                    R.string.fragment_battery_list);
+                setHomeAction(true);
+                break;
+            case R.string.fragment_battery_detail:
                 openFragment(new BatteryListFragment(), BaseFragment.EMPTY_BUNDLE,
                     R.string.fragment_battery_list);
                 setHomeAction(true);

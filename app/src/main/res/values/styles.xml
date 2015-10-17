@@ -44,4 +44,16 @@
         <item name="android:textSize">@dimen/text_size_title_material_toolbar</item>
         <item name="android:textColor">@color/color_text</item>
     </style>
+
+    <style name="AppTheme.Dialog.BottomSheet" parent="BottomSheet.Dialog">
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowAnimationStyle">@style/BottomSheet.Animation</item>
+        <item name="android:textColorPrimary">@color/color_primary</item>
+        <item name="android:textColorSecondary">@color/color_primary_dark</item>
+        <item name="android:textColorHint">@color/color_primary_dark</item>
+        <item name="bs_dialogBackground">@android:color/background_light</item>
+        <item name="bs_dividerColor">@color/color_divider</item>
+        <item name="bs_numColumns">3</item>
+        <item name="bs_listStyle">@style/BottomSheet.Grid</item>
+    </style>
 </resources>
