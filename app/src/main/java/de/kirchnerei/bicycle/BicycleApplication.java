@@ -11,6 +11,7 @@ import de.kirchnerei.bicycle.helper.Formatter;
 import de.kirchnerei.bicycle.http.DiagnoseManager;
 import de.kirchnerei.bicycle.http.HttpManager;
 import de.kirchnerei.bicycle.setting.SettingManager;
+import kirchnerei.httpclient.Definition;
 
 public class BicycleApplication extends Application {
 
@@ -26,6 +27,7 @@ public class BicycleApplication extends Application {
         mFormatter = new Formatter(this);
         mHttpManager = new HttpManager(mSetting, this);
         mMapper = new ObjectMapper();
+        mMapper.setDateFormat(Definition.DEFAULT_DATE_FORMAT);
     }
 
     public SettingRepository getSetting() {

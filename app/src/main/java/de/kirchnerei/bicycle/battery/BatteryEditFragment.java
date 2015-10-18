@@ -147,6 +147,8 @@ public class BatteryEditFragment extends BaseFragment {
     private void doSaveBatteryItem() {
         updateItemFromEditView();
 
+        PostBatteryEditRequest request = new PostBatteryEditRequest();
+        request.execute(mId);
     }
 
     private void doPickBatteryDate() {
@@ -156,6 +158,7 @@ public class BatteryEditFragment extends BaseFragment {
 
         DatePickerDialog dlg = new DatePickerDialog(
             getActivity(),
+            // TODO Define a Theme for the DatePickerDialog
             new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -172,9 +175,9 @@ public class BatteryEditFragment extends BaseFragment {
             now.get(Calendar.DATE)
         );
         dlg.getDatePicker().setMaxDate(System.currentTimeMillis());
+        dlg.getDatePicker().setFirstDayOfWeek(Calendar.MONDAY);
         dlg.show();
     }
-
 
     private final View.OnClickListener saveBatteryListener = new View.OnClickListener() {
         @Override
@@ -182,7 +185,6 @@ public class BatteryEditFragment extends BaseFragment {
            doSaveBatteryItem();
         }
     };
-
 
     class GetBatteryEditRequest extends AsyncTask<Object, Void, BatteryEdit> {
 
@@ -241,9 +243,15 @@ public class BatteryEditFragment extends BaseFragment {
                 }
                 return mMapper.readValue(response.getContent(), ResultStorage.class);
             } catch (IOException e) {
-                //
+                // TODO Show a error message
             }
             return new ResultStorage(-1);
+        }
+
+        @Override
+        protected void onPostExecute(ResultStorage result) {
+            getMiddlewareHandler().onAction(R.string.fragment_battery_list,
+                BaseFragment.EMPTY_BUNDLE);
         }
     }
 
