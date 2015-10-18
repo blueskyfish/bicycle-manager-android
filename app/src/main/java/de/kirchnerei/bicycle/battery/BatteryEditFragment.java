@@ -22,6 +22,7 @@ import de.kirchnerei.bicycle.FloatingButtonKind;
 import de.kirchnerei.bicycle.MiddlewareHandler;
 import de.kirchnerei.bicycle.R;
 import de.kirchnerei.bicycle.helper.Formatter;
+import de.kirchnerei.bicycle.helper.Logger;
 import de.kirchnerei.bicycle.helper.NumberUtils;
 import de.kirchnerei.bicycle.http.HttpManager;
 import kirchnerei.httpclient.HttpRequest;
@@ -106,7 +107,7 @@ public class BatteryEditFragment extends BaseFragment {
         }
         if (mId > 0) {
             GetBatteryEditRequest request = new GetBatteryEditRequest();
-            request.execute(mId);
+            request.execute("battery", mId);
         }
     }
 
@@ -183,21 +184,28 @@ public class BatteryEditFragment extends BaseFragment {
     };
 
 
-    class GetBatteryEditRequest extends AsyncTask<Integer, Void, BatteryEdit> {
+    class GetBatteryEditRequest extends AsyncTask<Object, Void, BatteryEdit> {
 
         @Override
-        protected BatteryEdit doInBackground(Integer... params) {
-            String url = PathBuilder.toUrl("battery", params[0]);
+        protected BatteryEdit doInBackground(Object... params) {
+            String url = PathBuilder.toUrl(params);
+            Logger.debug("get battery GET %s", url);
             HttpRequest request = HttpRequest.buildGET(url);
             HttpResponse response = mHttpManager.execute(request);
             if (response.hasError()) {
-                // TODO
+                getMiddlewareHandler()
+                    .makeSnackbar(R.string.battery_edit_request_error)
+                    .show();
                 return new BatteryEdit();
             }
             try {
-                return mMapper.readValue(response.getContent(), BatteryEdit.class);
+                ResultBatteryEdit result = mMapper.readValue(response.getContent(),
+                    ResultBatteryEdit.class);
+                return result.getBattery();
             } catch (IOException e) {
-                // TODO
+                getMiddlewareHandler()
+                    .makeSnackbar(R.string.battery_edit_mapper_error)
+                    .show();
             }
             return new BatteryEdit();
         }
