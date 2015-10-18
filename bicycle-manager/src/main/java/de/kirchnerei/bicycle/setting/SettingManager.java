@@ -96,7 +96,6 @@ public class SettingManager implements SettingRepository {
         Check.notNull(password,
             "Could not change the settings, because the parameter 'password' is null!");
 
-        Logger.debug("save login [%s - %s]", userEmail, password);
         String token = buildToken(userEmail, password);
         Logger.debug("token [%s]", token);
 

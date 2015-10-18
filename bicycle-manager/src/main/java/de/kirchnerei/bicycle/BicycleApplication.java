@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.kirchnerei.bicycle.helper.Formatter;
+import de.kirchnerei.bicycle.helper.Logger;
 import de.kirchnerei.bicycle.http.DiagnoseManager;
 import de.kirchnerei.bicycle.http.HttpManager;
 import de.kirchnerei.bicycle.setting.SettingManager;
@@ -28,6 +29,7 @@ public class BicycleApplication extends Application {
         mHttpManager = new HttpManager(mSetting, this);
         mMapper = new ObjectMapper();
         mMapper.setDateFormat(Definition.DEFAULT_DATE_FORMAT);
+        Logger.setLogLevel(getString(R.string.logger_level));
     }
 
     public SettingRepository getSetting() {

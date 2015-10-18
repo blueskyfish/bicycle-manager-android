@@ -3,6 +3,8 @@ package de.kirchnerei.bicycle.http;
 import android.content.Context;
 
 import de.kirchnerei.bicycle.SettingRepository;
+import de.kirchnerei.bicycle.helper.Logger;
+import de.kirchnerei.bicycle.helper.StringUtil;
 import kirchnerei.httpclient.Definition;
 import kirchnerei.httpclient.HttpClient;
 import kirchnerei.httpclient.HttpClientStore;
@@ -38,7 +40,12 @@ public class HttpManager {
     }
 
     public HttpResponse execute(HttpRequest request) {
-        return mHttpClient.execute(request);
+        HttpResponse response = mHttpClient.execute(request);
+        Logger.debug("request %s %s -> %s (%s byte) %s ms",
+            request.getMethod(), request.getUrl(),
+            response.getStatusCode(), StringUtil.length(response.getContent()),
+            response.getDuration());
+        return response;
     }
 
     static HttpClient createHttClient(SettingRepository setting, HttpClientStore store, Context context) {
