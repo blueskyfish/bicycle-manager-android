@@ -34,10 +34,15 @@
     <string name="battery_average_speed_label">Ø Geschwindigkeit</string>
     <string name="battery_leftover_label">Rest</string>
     <string name="battery_date_label">Datum</string>
+    <string name="battery_distance_label">Entfernung</string>
 
     <string name="battery_list_request_error">Die Anfrage nach den Batterie Elementen ist fehlgeschlagen!</string>
     <string name="battery_list_request_error_action">Diagnose!</string>
     <string name="battery_list_mapper_error">Das Ergebnis endhielt Fehler und musste verworfen werden!</string>
+    <string name="battery_detail_request_error">Es ist ein Fehler aufgetreten. Die Daten ist nicht vorhanden!</string>
+
+    <string name="battery_edit_request_error">Es ist ein Fehler aufgetreten! Es wird ein leerer Batterie Datensatz zurück gegeben.</string>
+    <string name="battery_edit_mapper_error">Das Ergebnis endhielt Fehler und musst verworfen werden!</string>
 
     <string name="diagnose_title">Internet Diagnose</string>
     <string name="diagnose_message">Überprüfen der Internent Verbindung:</string>
