@@ -12,5 +12,7 @@ public final class Delay {
 
     public static final long START_BOTTOM_SHEET = 500;
 
+    public static final long START_FAB_BUTTON = 800;
+
     private Delay() {}
 }
