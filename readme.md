@@ -63,7 +63,7 @@ First: Create a string resource in the folder `app/src/main/res` (The name of th
 
 ## History
 
-| Date         | Version | Nunber | Description
+| Date         | Version | Number | Description
 |--------------|---------|--------|-------------------------------
 | 2015-10-18   | 1.0.0   | 1      | Initial app.
 
