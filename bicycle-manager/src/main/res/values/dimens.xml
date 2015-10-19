@@ -1,3 +1,9 @@
+<!--
+  ~ The MIT License (MIT)
+  ~ Copyright (c) 2015 BlueSkyFish
+  ~
+  ~ bicycle-manager-android - https://github.com/blueskyfish/bicycle-manager-android.git
+  -->
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>

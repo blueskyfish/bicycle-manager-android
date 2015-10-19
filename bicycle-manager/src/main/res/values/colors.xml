@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ The MIT License (MIT)
+  ~ Copyright (c) 2015 BlueSkyFish
+  ~
+  ~ bicycle-manager-android - https://github.com/blueskyfish/bicycle-manager-android.git
+  -->
 <resources>
     <color name="color_primary">#3F51B5</color>
     <color name="color_primary_dark">#303F9F</color>
