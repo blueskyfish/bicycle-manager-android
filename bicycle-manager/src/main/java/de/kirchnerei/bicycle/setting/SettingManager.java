@@ -27,6 +27,7 @@ public class SettingManager implements SettingRepository {
     public static final String PREF_PASSWORD = "de.kirchnerei.bicycle.password";
     public static final String PREF_TOKEN = "de.kirchnerei.bicycle.token";
     public static final String PREF_BASE_URL = "de.kirchnerei.bicycle.baseUrl";
+    public static final String PREF_CURRENT_VIEW = "de.kirchnerei.bicycle.currentView";
 
     private String mUserEmail = null;
     private String mPassword = null;
@@ -117,6 +118,29 @@ public class SettingManager implements SettingRepository {
         mUserEmail = userEmail;
         mPassword = password;
         mToken = token;
+    }
+
+    @Override
+    public void storeCurrentView(int tagId) {
+        // save only a view without Bundle arguments!!
+        switch (tagId) {
+            case R.string.fragment_battery_detail:
+            case R.string.fragment_battery_edit:
+                tagId = R.string.fragment_battery_list;
+                break;
+        }
+        SharedPreferences prefs = mContext.getSharedPreferences(
+            PREF_FILENAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(PREF_CURRENT_VIEW, tagId);
+        editor.apply();
+    }
+
+    @Override
+    public int getCurrentView() {
+        SharedPreferences prefs = mContext.getSharedPreferences(
+            PREF_FILENAME, Context.MODE_PRIVATE);
+        return prefs.getInt(PREF_CURRENT_VIEW, R.string.fragment_overview);
     }
 
     private String buildToken(String userEmail, String password) {

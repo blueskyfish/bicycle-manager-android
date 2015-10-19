@@ -36,4 +36,18 @@ public interface SettingRepository {
      * @param token the token
      */
     void verifyToken(String token);
+
+    /**
+     * Stores the current view.
+     *
+     * @param tagId the tag id of the current view.
+     */
+    void storeCurrentView(int tagId);
+
+    /**
+     * Returns the current view.
+     *
+     * @return the tag id of the current view
+     */
+    int getCurrentView();
 }
