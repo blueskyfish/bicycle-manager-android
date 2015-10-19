@@ -1,9 +1,16 @@
+/*
+ * The MIT License (MIT)
+ * Copyright (c) 2015 BlueSkyFish
+ *
+ * bicycle-manager-android - https://github.com/blueskyfish/bicycle-manager-android.git
+ */
 package de.kirchnerei.bicycle.battery;
 
 
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,6 +43,7 @@ import kirchnerei.httpclient.PathBuilder;
  */
 public class BatteryListFragment extends BaseFragment {
 
+    private SwipeRefreshLayout mSwipeRefresh;
     private RecyclerView mBatteryList;
     private BatteryListAdapter mAdapter;
 
@@ -75,6 +83,14 @@ public class BatteryListFragment extends BaseFragment {
         mFormatter = getBicycleApplication().getFormatter();
         mAdapter = new BatteryListAdapter(batteryItemClick, mFormatter);
         mBatteryList.setAdapter(mAdapter);
+
+        mSwipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                doRefreshBatteryList();
+            }
+        });
     }
 
     @Override
@@ -131,6 +147,17 @@ public class BatteryListFragment extends BaseFragment {
                 Logger.debug("Not implemented yet");
                 break;
         }
+    }
+
+    private void doRefreshBatteryList() {
+        mSwipeRefresh.setRefreshing(true);
+        getMiddlewareHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                GetBatteryListRequest request = new GetBatteryListRequest();
+                request.execute("battery");
+            }
+        }, Delay.START_REQUEST);
     }
 
     private final View.OnClickListener addBatteryListener = new View.OnClickListener() {
@@ -198,6 +225,9 @@ public class BatteryListFragment extends BaseFragment {
         @Override
         protected void onPostExecute(List<BatteryItem> items) {
             mAdapter.changeData(items);
+            if (mSwipeRefresh.isRefreshing()) {
+                mSwipeRefresh.setRefreshing(false);
+            }
         }
 
         private final List<BatteryItem> EMPTY_LIST = new ArrayList<>();

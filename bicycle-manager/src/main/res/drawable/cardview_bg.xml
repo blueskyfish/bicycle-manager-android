@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ The MIT License (MIT)
+  ~ Copyright (c) 2015 BlueSkyFish
+  ~
+  ~ bicycle-manager-android - https://github.com/blueskyfish/bicycle-manager-android.git
+  -->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
         android:color="?android:attr/colorControlHighlight">
     <item
