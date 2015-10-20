@@ -60,6 +60,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mMsgHandler = null;
+        mFABKind = null;
+        mHistory = null;
+    }
+
+    @Override
     public void onAction(int action, Bundle arguments) {
         switch (action) {
             case R.string.fragment_setting:

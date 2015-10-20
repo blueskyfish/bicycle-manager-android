@@ -107,6 +107,18 @@ public class BatteryListFragment extends BaseFragment {
         }, Delay.START_REQUEST);
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        mSwipeRefresh = null;
+        mBatteryList = null;
+        mAdapter = null;
+        mHttpManager = null;
+        mMapper = null;
+        mFormatter = null;
+    }
+
     private void doBatteryItemClick(final View view) {
         final int itemPosition = mBatteryList.getChildLayoutPosition(view);
         getMiddlewareHandler().post(new Runnable() {
