@@ -24,15 +24,10 @@ public class MainActivity extends AppCompatActivity
 {
     private Handler mMsgHandler = new Handler();
 
-    @Deprecated
-    private int mCurrentFragmentId = 0;
-
     private FloatingButtonKind mFABKind = null;
     private FloatingActionButton mFAButton;
 
     private HistoryProvider mHistory;
-
-    private SettingRepository mSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +35,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         mFAButton = (FloatingActionButton) findViewById(R.id.action_add_distance);
-        mSetting = ((BicycleApplication) getApplication()).getSetting();
         mHistory = new HistoryProvider(this);
 
         if (savedInstanceState != null) {
