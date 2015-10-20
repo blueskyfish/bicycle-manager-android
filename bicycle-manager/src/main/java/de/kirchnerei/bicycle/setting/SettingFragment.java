@@ -65,6 +65,14 @@ public class SettingFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mUserEmail = null;
+        mPassword = null;
+        mToken = null;
+    }
+
     private void doSaveSettings() {
         String userEmail = mUserEmail.getText().toString();
         String password = mPassword.getText().toString();

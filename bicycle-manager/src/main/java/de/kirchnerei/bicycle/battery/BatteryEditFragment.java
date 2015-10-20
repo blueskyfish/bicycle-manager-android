@@ -117,6 +117,19 @@ public class BatteryEditFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        mDate = null;
+        mAverageSpeed = null;
+        mMileage = null;
+        mLeftover = null;
+        mHttpManager = null;
+        mFormatter = null;
+        mMapper = null;
+    }
+
     private void updateDate(Date date) {
         if (date == null) {
             date = item.getDate();

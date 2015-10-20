@@ -98,6 +98,19 @@ public class BatteryDetailFragment extends BaseFragment {
         }, Delay.START_REQUEST);
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        mDate = null;
+        mDistance = null;
+        mAverageSpeed = null;
+        mMileage = null;
+        mLeftover = null;
+        mHttpManager = null;
+        mMapper = null;
+        mFormatter = null;
+    }
 
     private void doEditBatteryClick() {
         Bundle args = new Bundle();
