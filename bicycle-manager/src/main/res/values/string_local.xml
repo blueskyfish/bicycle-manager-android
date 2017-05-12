@@ -5,10 +5,6 @@
   ~
   ~ bicycle-manager-android - https://github.com/blueskyfish/bicycle-manager-android.git
   -->
-
-<!--
-    This file is not in the git repository !!
--->
 <resources>
     <string name="setting_base_url">https://moonfish.gacrux.uberspace.de/bicycle</string>
 </resources>

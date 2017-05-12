@@ -18,7 +18,7 @@
 
 **For Mobile Phone**
 
-* Android 5.0.2 *(Tested on Motorola G 2015 with Android 5.0.2)*
+* Android 7.0 *(Tested on Samsung S8)*
 
 
 ## Screenshots
@@ -29,22 +29,6 @@
 | ![Battery List](./docs/images/android-battery-list.png) | ![Battery List Menu](./docs/images/android-battery-list-menu.png)
 | ![Battery Edit](./docs/images/android-battery-edit.png) | ![Battery Detail](./docs/images/android-battery-detail.png)
 
-
-## Setup the BaseURL
-
-The base url for the backend must be configured separably.
-
-First: Create a string resource in the folder `app/src/main/res` (The name of the string resource does not matter).
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-    This file is not in the git repository !!
--->
-<resources>
-    <string name="setting_base_url">http(s)://domain/subfolder</string>
-</resources>
-```
 
 
 ## Third Party Libraries
