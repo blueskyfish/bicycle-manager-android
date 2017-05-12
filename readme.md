@@ -48,9 +48,10 @@
 ## History
 
 | Date         | Version | Number | Description
-|--------------|---------|--------|-------------------------------
-| 2015-10-18   | 1.0.0   | 1      | Initial app.
+|--------------|:-------:|:------:|-------------------------------
+| 2017-05-12   | 1.2.0   | 3      | add the delete action and improve battery edit and details
 | 2017-05-12   | 1.1.0   | 2      | update to Android 7.0 (#24)<br>rename the package to "de.blueskyfish"
+| 2015-10-18   | 1.0.0   | 1      | Initial app.
 
 
 ## License
