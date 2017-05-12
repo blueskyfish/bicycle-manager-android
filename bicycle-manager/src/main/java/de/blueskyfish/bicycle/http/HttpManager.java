@@ -7,6 +7,7 @@
 package de.blueskyfish.bicycle.http;
 
 import android.content.Context;
+import android.os.Handler;
 
 import de.blueskyfish.bicycle.SettingRepository;
 import de.blueskyfish.bicycle.helper.Logger;
@@ -25,9 +26,12 @@ public class HttpManager {
 
     private final SettingRepository mSetting;
     private final HttpClient mHttpClient;
+    private HttpProcess httpProcess;
+    private final Handler mainHandler;
 
     public HttpManager(SettingRepository setting, Context context) {
         this.mSetting = setting;
+        this.mainHandler = new Handler(context.getMainLooper());
 
         HttpClientStore mHttpStore = new HttpClientStore() {
             @Override
@@ -44,13 +48,19 @@ public class HttpManager {
     }
 
     public HttpResponse execute(HttpRequest request) {
-        HttpResponse response = mHttpClient.execute(request);
-        Logger.debug("request %s %s -> %s (%s byte) %s ms",
-            request.getMethod(), request.getUrl(),
-            response.getStatusCode(), StringUtil.length(response.getContent()),
-            response.getDuration());
-        return response;
+        onHttpStart();
+        try {
+            HttpResponse response = mHttpClient.execute(request);
+            Logger.debug("request %s %s -> %s (%s byte) %s ms",
+                    request.getMethod(), request.getUrl(),
+                    response.getStatusCode(), StringUtil.length(response.getContent()),
+                    response.getDuration());
+            return response;
+        } finally {
+            onHttpFinish();
+        }
     }
+
 
     private static HttpClient createHttClient(SettingRepository setting, HttpClientStore store, Context context) {
 
@@ -65,4 +75,31 @@ public class HttpManager {
         return new HttpClient(config, store);
     }
 
+    private void onHttpStart() {
+        if (httpProcess != null) {
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    httpProcess.startRequest();
+                }
+            });
+        }
+    }
+
+    private void onHttpFinish() {
+        if (httpProcess != null) {
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    httpProcess.finishRequest();
+                }
+            });
+        }
+    }
+
+    public static void setHttpProcess(HttpManager httpManager, HttpProcess httpProcess) {
+        if (httpManager != null) {
+            httpManager.httpProcess = httpProcess;
+        }
+    }
 }

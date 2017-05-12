@@ -18,9 +18,11 @@ import de.blueskyfish.bicycle.helper.Check;
 import de.blueskyfish.bicycle.helper.Delay;
 import de.blueskyfish.bicycle.helper.Logger;
 import de.blueskyfish.bicycle.http.DiagnoseManager;
+import de.blueskyfish.bicycle.http.HttpManager;
+import de.blueskyfish.bicycle.http.HttpProcess;
 
 public class MainActivity extends AppCompatActivity
-    implements MiddlewareHandler
+    implements MiddlewareHandler, HttpProcess
 {
     private Handler mMsgHandler = new Handler();
 
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton mFAButton;
 
     private HistoryProvider mHistory;
+
+    private boolean mFloatButtonEnabled = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,24 @@ public class MainActivity extends AppCompatActivity
 
         BaseFragment fragment = mHistory.getLastView();
         mHistory.startView(fragment, mHistory.getLastViewTagId(), BaseFragment.EMPTY_BUNDLE);
+
+        HttpManager.setHttpProcess(((BicycleApplication) getApplication()).getHttpManager(), this);
+    }
+
+    @Override
+    public void startRequest() {
+        mFloatButtonEnabled = false;
+        if (mFAButton != null) {
+            mFAButton.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void finishRequest() {
+        mFloatButtonEnabled = true;
+        if (mFAButton != null) {
+            mFAButton.setEnabled(true);
+        }
     }
 
     @Override
@@ -93,7 +115,7 @@ public class MainActivity extends AppCompatActivity
         if (mFABKind != kind) {
             mFABKind = kind;
             mFAButton.setImageDrawable(getDrawable(kind.getImageId()));
-            mFAButton.setOnClickListener(onClickListener);
+            mFAButton.setOnClickListener(new OnClickFacadeListener(onClickListener));
             Logger.debug("change the FAB Button to %s", kind);
         }
     }
@@ -150,4 +172,20 @@ public class MainActivity extends AppCompatActivity
             mFAButton.show();
         }
     };
+
+    private class OnClickFacadeListener implements View.OnClickListener {
+
+        private final View.OnClickListener otherListener;
+
+        public OnClickFacadeListener(View.OnClickListener otherListener) {
+            this.otherListener = otherListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (MainActivity.this.mFloatButtonEnabled) {
+                otherListener.onClick(v);
+            }
+        }
+    }
 }
