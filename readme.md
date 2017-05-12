@@ -57,7 +57,7 @@ First: Create a string resource in the folder `app/src/main/res` (The name of th
 | com.android.support:recyclerview<br><https://developer.android.com/tools/support-library/index.html>  | v7 23.1.0  | Apache License, Version 2.0
 | com.cocosw:bottomsheet<br><https://github.com/soarcn/BottomSheet>                                     | 1.2.0@aar  | Apache License, Version 2.0 
 | com.google.guava:guava<br> <https://github.com/google/guava>                                          | 18.0       | Apache License, Version 2.0
-| kirchnerei:simple-http-client<br><https://github.com/blueskyfish/simple-http-client>                  | 0.2.0      | The MIT License (MIT)
+| de.blueskyfish:simple-http-client<br><https://github.com/blueskyfish/simple-http-client>              | 0.3.2      | The MIT License (MIT)
 | com.fasterxml.jackson.core:jackson-databind<br><https://github.com/FasterXML/jackson-databind>        | 2.6.2      | Apache License, Version 2.0
 
 
@@ -66,6 +66,7 @@ First: Create a string resource in the folder `app/src/main/res` (The name of th
 | Date         | Version | Number | Description
 |--------------|---------|--------|-------------------------------
 | 2015-10-18   | 1.0.0   | 1      | Initial app.
+| 2017-05-12   | 1.1.0   | 2      | update to Android 7.0 (#24)<br>rename the package to "de.blueskyfish"
 
 
 ## License
@@ -73,7 +74,7 @@ First: Create a string resource in the folder `app/src/main/res` (The name of th
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015 BlueSkyFish
+Copyright (c) 2017 BlueSkyFish
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
