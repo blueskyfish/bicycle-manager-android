@@ -15,10 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.kirchnerei.bicycle.helper.Formatter;
 import de.kirchnerei.bicycle.helper.Logger;
-import de.kirchnerei.bicycle.http.DiagnoseManager;
 import de.kirchnerei.bicycle.http.HttpManager;
 import de.kirchnerei.bicycle.setting.SettingManager;
-import kirchnerei.httpclient.Definition;
+import de.blueskyfish.httpclient.Definition;
 
 public class BicycleApplication extends Application {
 

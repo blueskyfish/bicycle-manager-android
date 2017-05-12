@@ -10,7 +10,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/card_bottom_margin"
     android:focusableInTouchMode="false"
     android:focusable="false"
@@ -20,97 +20,97 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/card_vertical_padding"
         android:paddingLeft="@dimen/card_horizontal_padding"
         android:paddingRight="@dimen/card_horizontal_padding"
-        android:paddingTop="@dimen/card_vertical_padding"
-        android:paddingBottom="@dimen/card_vertical_padding">
+        android:paddingTop="@dimen/card_vertical_padding">
 
         <ImageView
-            android:src="@drawable/ic_battery_charging_full_indigo_48dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:contentDescription="@string/battery_image_hint"
             android:id="@+id/battery_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/battery_mileage_label"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginEnd="@dimen/card_horizontal_margin"
-            android:layout_alignBottom="@+id/battery_mileage_label"/>
+            android:contentDescription="@string/battery_image_hint"
+            android:src="@drawable/ic_battery_charging_full_indigo_48dp" />
 
         <TextView
-            style="@style/AppTheme.Header.Primary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="30.09.2015"
             android:id="@+id/battery_date"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/battery_image"
-            android:layout_marginBottom="@dimen/card_vertical_margin"/>
-
-        <TextView
             style="@style/AppTheme.Header.Primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="89,4 km"
-            android:id="@+id/battery_distance"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"/>
-
-        <TextView
-            style="@style/AppTheme.Text.Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/battery_mileage_label"
-            android:id="@+id/battery_mileage_label"
-            android:layout_below="@+id/battery_date"
+            android:layout_marginBottom="@dimen/card_vertical_margin"
             android:layout_toEndOf="@+id/battery_image"
-            android:layout_marginBottom="@dimen/card_vertical_group_margin"/>
+            android:text="30.09.2015" />
 
         <TextView
+            android:id="@+id/battery_distance"
+            style="@style/AppTheme.Header.Primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="89,4 km" />
+
+        <TextView
+            android:id="@+id/battery_mileage_label"
             style="@style/AppTheme.Text.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/battery_average_speed_label"
+            android:layout_below="@+id/battery_date"
+            android:layout_marginBottom="@dimen/card_vertical_group_margin"
+            android:layout_toEndOf="@+id/battery_image"
+            android:text="@string/battery_mileage_label" />
+
+        <TextView
             android:id="@+id/battery_average_speed_label"
+            style="@style/AppTheme.Text.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/battery_mileage_label"
-            android:layout_alignParentEnd="true"/>
+            android:text="@string/battery_average_speed_label" />
 
         <TextView
-            style="@style/AppTheme.Text.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10023,4 km"
             android:id="@+id/battery_mileage"
-            android:layout_below="@+id/battery_mileage_label"
-            android:layout_alignStart="@+id/battery_mileage_label"/>
-
-        <TextView
             style="@style/AppTheme.Text.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="18,5 km/h"
+            android:layout_alignStart="@+id/battery_mileage_label"
+            android:layout_below="@+id/battery_mileage_label"
+            android:text="10023,4 km" />
+
+        <TextView
             android:id="@+id/battery_average_speed"
-            android:layout_alignTop="@+id/battery_mileage"
-            android:layout_alignParentEnd="true"/>
-
-        <TextView
-            style="@style/AppTheme.Text.Label"
+            style="@style/AppTheme.Text.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/card_horizontal_margin"
-            android:text="@string/battery_leftover_label"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/battery_mileage"
+            android:text="18,5 km/h" />
+
+        <TextView
             android:id="@+id/battery_leftover_label"
-            android:layout_alignTop="@+id/battery_mileage"
-            android:layout_toEndOf="@+id/battery_mileage"/>
-
-        <TextView
             style="@style/AppTheme.Text.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="3,4 km"
+            android:layout_alignTop="@+id/battery_mileage"
+            android:layout_marginStart="@dimen/card_horizontal_margin"
+            android:layout_toEndOf="@+id/battery_mileage"
+            android:text="@string/battery_leftover_label" />
+
+        <TextView
             android:id="@+id/battery_leftover"
+            style="@style/AppTheme.Text.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/battery_average_speed"
-            android:layout_toEndOf="@+id/battery_leftover_label"/>
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/battery_leftover_label"
+            android:text="3,4 km" />
 
     </RelativeLayout>
 

@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import de.kirchnerei.bicycle.R;
-import kirchnerei.httpclient.Definition;
+import de.blueskyfish.httpclient.Definition;
 
 public class Formatter {
 

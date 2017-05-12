@@ -33,9 +33,9 @@ import de.kirchnerei.bicycle.helper.Logger;
 import de.kirchnerei.bicycle.http.DiagnoseManager;
 import de.kirchnerei.bicycle.http.HttpManager;
 import de.kirchnerei.bicycle.http.StatusCheck;
-import kirchnerei.httpclient.HttpRequest;
-import kirchnerei.httpclient.HttpResponse;
-import kirchnerei.httpclient.PathBuilder;
+import de.blueskyfish.httpclient.HttpRequest;
+import de.blueskyfish.httpclient.HttpResponse;
+import de.blueskyfish.httpclient.PathBuilder;
 
 
 /**

@@ -11,12 +11,12 @@ import android.content.Context;
 import de.kirchnerei.bicycle.SettingRepository;
 import de.kirchnerei.bicycle.helper.Logger;
 import de.kirchnerei.bicycle.helper.StringUtil;
-import kirchnerei.httpclient.Definition;
-import kirchnerei.httpclient.HttpClient;
-import kirchnerei.httpclient.HttpClientStore;
-import kirchnerei.httpclient.HttpConfiguration;
-import kirchnerei.httpclient.HttpRequest;
-import kirchnerei.httpclient.HttpResponse;
+import de.blueskyfish.httpclient.Definition;
+import de.blueskyfish.httpclient.HttpClient;
+import de.blueskyfish.httpclient.HttpClientStore;
+import de.blueskyfish.httpclient.HttpConfiguration;
+import de.blueskyfish.httpclient.HttpRequest;
+import de.blueskyfish.httpclient.HttpResponse;
 
 public class HttpManager {
 
