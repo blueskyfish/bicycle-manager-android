@@ -6,7 +6,6 @@
  */
 package de.blueskyfish.bicycle.battery;
 
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,10 +31,9 @@ import de.blueskyfish.httpclient.HttpResponse;
 import de.blueskyfish.httpclient.PathBuilder;
 
 /**
- * A simple {@link BaseFragment} subclass.
+ * Fragement shows the deleting battery record and if the user confirm it executes the deletion.
  */
-public class BatteryDetailFragment extends BaseFragment {
-
+public class BatteryDeleteFragment extends BaseFragment {
     private int mId;
 
     private HttpManager mHttpManager;
@@ -48,9 +46,9 @@ public class BatteryDetailFragment extends BaseFragment {
     private TextView mMileage;
     private TextView mLeftover;
 
-    public BatteryDetailFragment() {
-        // Required empty public constructor
+    public BatteryDeleteFragment() {
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +66,7 @@ public class BatteryDetailFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_battery_detail, container, false);
+        return inflater.inflate(R.layout.fragment_battery_delete, container, false);
     }
 
     @Override
@@ -86,8 +84,8 @@ public class BatteryDetailFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 
-        getMiddlewareHandler().changeFloatingButton(FloatingButtonKind.BATTERY_DETAIL,
-            editBatteryListener);
+        getMiddlewareHandler().changeFloatingButton(FloatingButtonKind.BATTERY_DELETE,
+            deleteBatteryListener);
 
         getMiddlewareHandler().post(new Runnable() {
             @Override
@@ -95,6 +93,22 @@ public class BatteryDetailFragment extends BaseFragment {
                 doGetRequestBatteryDetail();
             }
         }, Delay.START_REQUEST);
+    }
+
+    private void doDeleteBatteryItem() {
+        if (mId > 0) {
+            DeleteRequestBatteryItem request = new DeleteRequestBatteryItem();
+            request.execute(mId);
+            return;
+        }
+        getMiddlewareHandler()
+            .makeSnackbar(R.string.battery_delete_error_empty, R.string.action_continue, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doOpenBatteryList();
+                }
+            })
+            .show();
     }
 
     @Override
@@ -109,12 +123,6 @@ public class BatteryDetailFragment extends BaseFragment {
         mHttpManager = null;
         mMapper = null;
         mFormatter = null;
-    }
-
-    private void doEditBatteryClick() {
-        Bundle args = new Bundle();
-        args.putInt(BatteryDefine.PARAM_BATTERY_ID, mId);
-        getMiddlewareHandler().onAction(R.string.fragment_battery_edit, args);
     }
 
     private void updateDate(Date date) {
@@ -142,12 +150,14 @@ public class BatteryDetailFragment extends BaseFragment {
         request.execute("battery", "detail", mId);
     }
 
-    private final View.OnClickListener editBatteryListener = new View.OnClickListener() {
+
+    private final View.OnClickListener deleteBatteryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            doEditBatteryClick();
+            doDeleteBatteryItem();
         }
     };
+
 
     private class GetRequestBatteryDetail extends AsyncTask<Object, Void, BatteryItem> {
 
@@ -185,4 +195,39 @@ public class BatteryDetailFragment extends BaseFragment {
             updateLeftover(item.getLeftover());
         }
     }
+
+    private class DeleteRequestBatteryItem extends AsyncTask<Integer, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Integer... params) {
+            int id = params != null && params.length > 0 ? params[0] : 0;
+            String url = PathBuilder.toUrl("battery", id);
+            HttpRequest request = HttpRequest.buildDELETE(url);
+            HttpResponse response = mHttpManager.execute(request);
+            if (response.hasError()) {
+                return Boolean.FALSE;
+            }
+            return Boolean.TRUE;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if (!success) {
+                getMiddlewareHandler()
+                    .makeSnackbar(R.string.battery_delete_error_delete, R.string.action_continue, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            doOpenBatteryList();
+                        }
+                    });
+                return;
+            }
+            doOpenBatteryList();
+        }
+    }
+
+    private void doOpenBatteryList() {
+        getMiddlewareHandler().onAction(R.string.fragment_battery_list, new Bundle());
+    }
+
 }

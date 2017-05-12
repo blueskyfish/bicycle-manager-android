@@ -13,8 +13,6 @@ import java.util.Date;
  */
 public class BatteryEdit {
 
-    private int id;
-
     private Date date;
 
     private int averageSpeed;
@@ -26,20 +24,11 @@ public class BatteryEdit {
     public BatteryEdit() {
     }
 
-    public BatteryEdit(int id, Date date, int averageSpeed, int mileage, int leftover) {
-        this.id = id;
+    public BatteryEdit(Date date, int averageSpeed, int mileage, int leftover) {
         this.date = date;
         this.averageSpeed = averageSpeed;
         this.mileage = mileage;
         this.leftover = leftover;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Date getDate() {

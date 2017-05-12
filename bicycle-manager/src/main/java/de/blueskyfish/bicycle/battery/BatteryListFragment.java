@@ -156,7 +156,7 @@ public class BatteryListFragment extends BaseFragment {
                 getMiddlewareHandler().onAction(R.string.fragment_battery_edit, args);
                 break;
             case R.id.action_delete:
-                Logger.debug("Not implemented yet");
+                getMiddlewareHandler().onAction(R.string.fragment_battery_delete, args);
                 break;
         }
     }

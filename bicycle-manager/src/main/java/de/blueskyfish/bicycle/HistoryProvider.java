@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.Stack;
 
+import de.blueskyfish.bicycle.battery.BatteryDeleteFragment;
 import de.blueskyfish.bicycle.battery.BatteryDetailFragment;
 import de.blueskyfish.bicycle.battery.BatteryEditFragment;
 import de.blueskyfish.bicycle.battery.BatteryListFragment;
@@ -24,7 +25,7 @@ import de.blueskyfish.bicycle.setting.SettingFragment;
 /**
  * Manages the history of the fragment views.
  *
- *
+ * FIXME (History must be reworked !!)
  */
 public class HistoryProvider {
 
@@ -144,6 +145,8 @@ public class HistoryProvider {
                 return new BatteryEditFragment();
             case R.string.fragment_battery_detail:
                 return new BatteryDetailFragment();
+            case R.string.fragment_battery_delete:
+                return new BatteryDeleteFragment();
             default:
                 Logger.warn("Unknown View id: %s", tagId);
                 return null;
@@ -157,6 +160,7 @@ public class HistoryProvider {
                 return R.string.fragment_overview;
             case R.string.fragment_battery_edit:
             case R.string.fragment_battery_detail:
+            case R.string.fragment_battery_delete:
                 return R.string.fragment_battery_list;
             default:
                 return 0;
@@ -200,7 +204,7 @@ public class HistoryProvider {
 
 
 
-    static final class ViewKey {
+    private static final class ViewKey {
 
         private final int entryId;
 

@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity
             case R.string.fragment_battery_list:
             case R.string.fragment_battery_edit:
             case R.string.fragment_battery_detail:
+            case R.string.fragment_battery_delete:
                 mHistory.openView(mHistory.createView(action), action, arguments);
                 break;
             case R.string.fragment_diagnose:

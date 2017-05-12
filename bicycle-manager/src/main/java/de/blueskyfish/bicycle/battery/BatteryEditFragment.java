@@ -205,7 +205,7 @@ public class BatteryEditFragment extends BaseFragment {
         }
     };
 
-    class GetBatteryEditRequest extends AsyncTask<Object, Void, BatteryEdit> {
+    private class GetBatteryEditRequest extends AsyncTask<Object, Void, BatteryEdit> {
 
         @Override
         protected BatteryEdit doInBackground(Object... params) {
@@ -215,7 +215,7 @@ public class BatteryEditFragment extends BaseFragment {
             HttpResponse response = mHttpManager.execute(request);
             if (response.hasError()) {
                 getMiddlewareHandler()
-                    .makeSnackbar(R.string.battery_edit_request_error)
+                    .makeSnackbar(R.string.battery_edit_request_get_error)
                     .show();
                 return new BatteryEdit();
             }
@@ -240,7 +240,7 @@ public class BatteryEditFragment extends BaseFragment {
         }
     }
 
-    class PostBatteryEditRequest extends AsyncTask<Integer, Void, ResultStorage> {
+    private class PostBatteryEditRequest extends AsyncTask<Integer, Void, ResultStorage> {
 
         @Override
         protected ResultStorage doInBackground(Integer... params) {
@@ -262,7 +262,9 @@ public class BatteryEditFragment extends BaseFragment {
                 }
                 return mMapper.readValue(response.getContent(), ResultStorage.class);
             } catch (IOException e) {
-                // TODO Show a error message
+                getMiddlewareHandler()
+                        .makeSnackbar(R.string.battery_edit_request_save_error)
+                        .show();
             }
             return new ResultStorage(-1);
         }

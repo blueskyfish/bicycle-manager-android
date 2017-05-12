@@ -18,4 +18,5 @@
     <color name="color_divider">#B6B6B6</color>
     <color name="color_gray_light">#A6A6Af</color>
     <color name="color_gray_dark">#666666</color>
+    <color name="color_primary_delete">#99FF5722</color>
 </resources>

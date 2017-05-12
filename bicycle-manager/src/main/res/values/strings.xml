@@ -17,11 +17,13 @@
     <string name="fragment_battery_list">de.kirchnerei.bicycle.fragment.batteryList</string>
     <string name="fragment_battery_edit">de.kirchnerei.bicycle.fragment.batteryEdit</string>
     <string name="fragment_battery_detail">de.kirchnerei.bicycle.fragment.batteryDetail</string>
+    <string name="fragment_battery_delete">de.kirchnerei.bicycle.fragment.batteryDelete</string>
     <string name="fragment_diagnose">de.kirchnerei.bicycle.fragment.diagnose</string>
 
     <string name="action_login">Anmelden</string>
     <string name="action_save">Speichern</string>
     <string name="action_cancel">Abbrechen</string>
+    <string name="action_continue">Weiter</string>
 
     <string name="action_detail">Details</string>
     <string name="action_edit">Bearbeiten</string>
@@ -34,6 +36,7 @@
     <string name="setting_title">Einstellungen</string>
     <string name="setting_text">Einstellungen bearbeiten.\nHier müssen die Login Daten und andere Dinge eingestellt werden.</string>
     <string name="setting_token_hint">Token</string>
+    <string name="setting_change_email_error">Die Daten sind nicht vollständig. Bitte E-Mail und Password eingeben!</string>
 
     <string name="battery_image_hint">Batterie</string>
     <string name="battery_mileage_label">Kilometerstand</string>
@@ -47,8 +50,13 @@
     <string name="battery_list_mapper_error">Das Ergebnis endhielt Fehler und musste verworfen werden!</string>
     <string name="battery_detail_request_error">Es ist ein Fehler aufgetreten. Die Daten ist nicht vorhanden!</string>
 
-    <string name="battery_edit_request_error">Es ist ein Fehler aufgetreten! Es wird ein leerer Batterie Datensatz zurück gegeben.</string>
+    <string name="battery_edit_request_get_error">Es ist ein Fehler aufgetreten! Es wird ein leerer Batterie Datensatz zurück gegeben.</string>
     <string name="battery_edit_mapper_error">Das Ergebnis endhielt Fehler und musst verworfen werden!</string>
+    <string name="battery_edit_request_save_error">Der Batterie Eintrag konnte nicht gespeichert werden (http error)</string>
+
+    <string name="battery_delete_header">Eintrag löschen!</string>
+    <string name="battery_delete_error_delete">Der Batterie Eintrag konnte nicht gelöscht werden!</string>
+    <string name="battery_delete_error_empty">Es ist kein Eintrag angegeben!</string>
 
     <string name="diagnose_title">Internet Diagnose</string>
     <string name="diagnose_message">Überprüfen der Internent Verbindung:</string>
@@ -60,7 +68,4 @@
     <string name="unit_format_date">dd.MM.yyyy</string>
     <string name="unit_format_separator">,</string>
     <string name="formatter_battery_title">Batterie %1$s (%2$s)</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

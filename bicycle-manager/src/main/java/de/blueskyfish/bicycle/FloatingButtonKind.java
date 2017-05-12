@@ -14,7 +14,8 @@ public enum FloatingButtonKind {
     BATTERY(R.drawable.ic_battery_charging_white_18dp),
     BATTERY_ADD(R.drawable.ic_save_white_18dp),
     BATTERY_SAVE(R.drawable.ic_save_white_18dp),
-    BATTERY_DETAIL(R.drawable.ic_edit_white_18dp);
+    BATTERY_DETAIL(R.drawable.ic_edit_white_18dp),
+    BATTERY_DELETE(R.drawable.ic_delete_white);
 
 
     private final int imageId;

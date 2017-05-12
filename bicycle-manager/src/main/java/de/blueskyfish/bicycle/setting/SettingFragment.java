@@ -81,7 +81,9 @@ public class SettingFragment extends BaseFragment {
             setting.change(userEmail, password);
             getMiddlewareHandler().onAction(R.string.fragment_overview, new Bundle());
         } catch (RuntimeException e) {
-            // TODO Show a message!
+            getMiddlewareHandler()
+                .makeSnackbar(R.string.setting_change_email_error)
+                .show();
         }
     }
 

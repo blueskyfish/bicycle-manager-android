@@ -32,6 +32,7 @@ public interface MiddlewareHandler {
     void hideFloatingButton();
 
     Snackbar makeSnackbar(int resourceId);
+
     Snackbar makeSnackbar(int resourceId, int actionId, View.OnClickListener listener);
 
     void post(Runnable runnable, long delay);
